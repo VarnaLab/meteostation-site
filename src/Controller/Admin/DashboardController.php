@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Station;
+use App\Entity\StationData;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -27,5 +28,6 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Stations', 'fas fa-list', Station::class);
+        yield MenuItem::linkToCrud('Station data', 'fas fa-list', StationData::class);
     }
 }

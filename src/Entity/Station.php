@@ -73,4 +73,9 @@ class Station
     {
         $this->location = $location;
     }
+
+    public function __toString()
+    {
+        return $this->name ?? 'Unnamed';
+    }
 }
