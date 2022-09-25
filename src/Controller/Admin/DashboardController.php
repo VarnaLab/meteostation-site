@@ -4,6 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Station;
 use App\Entity\StationData;
+use App\Repository\StationDataRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -12,6 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(
+        private readonly StationDataRepository $stationDataRepository
+    ) { }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -29,5 +36,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Stations', 'fas fa-list', Station::class);
         yield MenuItem::linkToCrud('Station data', 'fas fa-list', StationData::class);
+    }
+
+    public function configureAssets(): Assets
+    {
+        return parent::configureAssets()
+            ->addWebpackEncoreEntry('app');
     }
 }
