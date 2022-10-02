@@ -22,8 +22,8 @@ class Station
     #[ORM\Column(name: 'description', type: 'string')]
     public string $description = '';
 
-    #[ORM\Column(name: 'location', type: 'point')]
-    public Point $location;
+    #[ORM\Column(name: 'location', type: 'point', nullable: true)]
+    public ?Point $location = null;
 
     #[ORM\Column(name: 'created_at', type: 'datetimetz_immutable')]
     private \DateTimeImmutable $created;
@@ -64,13 +64,17 @@ class Station
         $this->description = $description;
     }
 
-    public function getLocation(): Point
+    public function getLocation(): ?Point
     {
         return $this->location;
     }
 
-    public function setLocation(Point $location): void
+    public function setLocation($location): void
     {
+        if (is_string($location)) {
+            [$long, $lat] = preg_split('#(\s+|,\s*)#', $location);
+            $location = (new Point($long, $lat));
+        }
         $this->location = $location;
     }
 

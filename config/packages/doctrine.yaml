@@ -3,7 +3,9 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
 
         types:
-            point:      CrEOF\Spatial\DBAL\Types\Geometry\PointType
+#            point: CrEOF\Spatial\DBAL\Types\Geometry\PointType
+            jsonb: MartinGeorgiev\Doctrine\DBAL\Types\Jsonb
+            point: App\Types\PointType
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -18,6 +20,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            string_functions:
+                AsText: CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\StAsText
+                MakePoint: CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\StMakePoint
+                geometryFromText: CrEOF\Spatial\ORM\Query\AST\Functions\PostgreSql\StGeomFromText
 
 when@test:
     doctrine:

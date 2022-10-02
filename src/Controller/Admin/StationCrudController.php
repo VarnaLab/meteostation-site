@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Station;
+use App\Field\PointField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -26,6 +27,7 @@ class StationCrudController extends AbstractCrudController
             TextField::new('name'),
             TextEditorField::new('description'),
             //Location
+            PointField::new('location'),
             DateTimeField::new('created')
                 ->setDisabled(),
         ];
