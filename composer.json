@@ -21,6 +21,7 @@
         "symfony/flex": "^2",
         "symfony/form": "6.1.*",
         "symfony/framework-bundle": "6.1.*",
+        "symfony/monolog-bundle": "^3.0",
         "symfony/options-resolver": "6.1.*",
         "symfony/property-access": "6.1.*",
         "symfony/property-info": "6.1.*",
@@ -32,7 +33,10 @@
         "symfony/yaml": "6.1.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.45"
+        "symfony/debug-bundle": "6.1.*",
+        "symfony/maker-bundle": "^1.45",
+        "symfony/stopwatch": "6.1.*",
+        "symfony/web-profiler-bundle": "6.1.*"
     },
     "config": {
         "allow-plugins": {
