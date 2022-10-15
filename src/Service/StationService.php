@@ -21,7 +21,10 @@ class StationService
     {
         $sql = /** @lang PostgreSQL */
             <<<SQL
-            select s.station_id, s.name, sd.*
+            select s.station_id, s.name
+                 , s.location[0] as lng
+                 , s.location[1] as lat
+                 , sd.*
             from station s
               inner join lateral (
                   select * 
