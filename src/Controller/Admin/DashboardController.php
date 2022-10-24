@@ -27,7 +27,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Meteostation');
+            ->setTitle('Meteostation administration dashboard');
     }
 
     public function configureMenuItems(): iterable
