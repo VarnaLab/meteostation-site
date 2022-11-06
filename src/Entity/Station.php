@@ -5,21 +5,22 @@ namespace App\Entity;
 
 use CrEOF\Spatial\PHP\Types\Geometry\Point;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[
     ORM\Entity,
-    ORM\Table(name: "station")
+    ORM\Table(name: "station"),
+    UniqueEntity(fields: ['id'], message: 'Station with this identifier has already been registered.')
 ]
 class Station
 {
     #[ORM\Id, ORM\Column(name: 'station_id', type: 'string')]
-    private readonly string $id;
+    private string $id;
 
     #[ORM\Column(name: 'name', type: 'string')]
     public ?string $name = null;
 
-    #[ORM\Column(name: 'description', type: 'string')]
+    #[ORM\Column(name: 'description', type: 'string', nullable: true)]
     public string $description = '';
 
     #[ORM\Column(name: 'location', type: 'point', nullable: true)]
@@ -30,13 +31,17 @@ class Station
 
     public function __construct()
     {
-        $this->id = (string)Uuid::v6();
         $this->created = new \DateTimeImmutable();
     }
 
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function setId(string $value): void
+    {
+        $this->id = $value;
     }
 
     public function getCreated(): \DateTimeImmutable
@@ -59,9 +64,9 @@ class Station
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(?string $description = ''): void
     {
-        $this->description = $description;
+        $this->description = $description ?? '';
     }
 
     public function getLocation(): ?Point

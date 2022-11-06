@@ -25,17 +25,12 @@ class StationCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
-            TextEditorField::new('description'),
+            TextEditorField::new('description', ),
             //Location
             PointField::new('location'),
             DateTimeField::new('created')
+                ->hideWhenCreating()
                 ->setDisabled(),
         ];
-    }
-
-    public function configureActions(Actions $actions): Actions
-    {
-        return parent::configureActions($actions)
-            ->remove(Crud::PAGE_INDEX, Action::NEW);
     }
 }
