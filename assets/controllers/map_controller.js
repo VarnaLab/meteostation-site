@@ -36,17 +36,16 @@ export default class extends Controller {
                     this.layer.clearLayers()
                     data.forEach(station => {
                         let measurements = JSON.parse(station.value).data
-                        let popupData = `<h4>${station.name}</h4><ul>`+
+                        let popupData = `<h4>${station.name}</h4><table>`+
                             Object.keys(measurements)
-                                .reduce((acc, key) => acc + `<li>${key}: ${measurements[key]}</li>`, '') +
-                            '</ul>'
-
+                                .reduce((acc, key) => acc + `<tr><th>${key}:</th> <td>${measurements[key]}</td></tr>`, '') +
+                            '</table>'
 
                         L.marker(
                             {lon: station.lng, lat: station.lat},
                             {icon: this.markerIcon}
                         )
-                            .bindPopup(popupData)
+                            .bindPopup(popupData) //TODO: On separate layer
                             .addTo(this.layer);
                     })
                 })
