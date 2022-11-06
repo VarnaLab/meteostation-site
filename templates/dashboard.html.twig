@@ -1,18 +1,43 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block main %}
+    {% set filters = ['temperature', 'humidity', 'pm10', 'pm25'] %}
     <style>
         #main {
             height: 80vh;
             padding: 0;
             margin: 0;
+            position: relative;
         }
 
-        #map {
+        #map, #map-container {
             /* configure the size of the map */
             width: 100%;
             height: 100%;
         }
+
+        .js-leaflet-filters {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 10px;
+            padding: 5px;
+            background: black;
+            z-index: 9999;
+        }
     </style>
-    <div id="map" data-controller="map"></div>
+    <div id="map-container" data-controller="map">
+        <div id="map"></div>
+        <div class="js-leaflet-filters">
+            <ul class="list-unstyled">
+                {% for f in filters %}
+                    <li>
+                        <button type="button"
+                                data-action="map#filter"
+                                data-map-filter-param="{{ f }}">{{ f }}</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

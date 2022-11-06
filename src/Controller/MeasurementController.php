@@ -43,13 +43,18 @@ class MeasurementController extends AbstractController
         }
 
         try {
-            foreach ($value as $item) {
-                $stmt->executeStatement([
-                    'id' => $stationId,
-                    'value' => json_encode($item, JSON_THROW_ON_ERROR),
-                    'created' => (new \DateTimeImmutable($timestamp ?? 'now'))->format('c'),
-                ]);
-            }
+            $stmt->executeStatement([
+                'id' => $stationId,
+                'value' => json_encode($value, JSON_THROW_ON_ERROR),
+                'created' => (new \DateTimeImmutable($timestamp ?? 'now'))->format('c'),
+            ]);
+//            foreach ($value as $item) {
+//                $stmt->executeStatement([
+//                    'id' => $stationId,
+//                    'value' => json_encode($item, JSON_THROW_ON_ERROR),
+//                    'created' => (new \DateTimeImmutable($timestamp ?? 'now'))->format('c'),
+//                ]);
+//            }
 
             return $this->json(['status' => 'OK'], 201);
         } catch (Exception\ForeignKeyConstraintViolationException $e) {
