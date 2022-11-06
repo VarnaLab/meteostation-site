@@ -52,6 +52,7 @@ export default class extends Controller {
                 })
         }
 
+        ff()
         setInterval(ff, 5000)
     }
 }
